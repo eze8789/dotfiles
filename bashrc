@@ -20,7 +20,15 @@ export PATH
 # Set default editor
 export EDITOR=vim
 
-# AWS autocompletion
+# colors for all grep commands
+# TODO Change GREP_OPTIONS since it's deprecated
+#export GREP_OPTIONS='--color=auto'
+
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+#AWS autocompletion
 complete -C '/usr/local/bin/aws_completer' aws
 
 # Terraform autocompletion
