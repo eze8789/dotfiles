@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GO_BIN=$HOME/go/bin
-export PATH=$PATH:$GO_BIN
+export PATH=$PATH:/home/eze/.local/bin:/var/lib/snapd/snap/bin:$GO_BIN
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/eze/.oh-my-zsh"
@@ -138,7 +138,7 @@ export HISTSIZE=1000000
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMANDS"\n"}history -a; history -c; history -r"
 #
 # No duplicates
-export HISTCONTROL=ignoredups:erasedups
+#export HISTCONTROL=ignoredups:erasedups
 #
 ## Append to the history file instead of overwriting when the shell exists
 #shopt -s histappend

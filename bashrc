@@ -5,10 +5,12 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+GO_BIN=$HOME/go/bin
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:/var/lib/snapd/snap/bin:$GO_BIN:$HOME/.local/protobuf/bin:$PATH"
 fi
 export PATH
 
@@ -27,6 +29,7 @@ export EDITOR=vim
 alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
+alias ls='ls --color=auto' 
 
 #AWS autocompletion
 complete -C '/usr/local/bin/aws_completer' aws
@@ -60,4 +63,15 @@ alias vi='vim'
 alias less='less -R'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+alias k='kubectl'
 
+# kind completion
+source <(kind completion bash)
+#
+
+
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1="\u@\h \[\e[32m\]\w\[\e[91m\]\$(parse_git_branch)\[\e[00m\]]$ "
