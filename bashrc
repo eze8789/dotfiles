@@ -64,6 +64,7 @@ alias less='less -R'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias k='kubectl'
+complete -F __start_kubectl k
 
 # kind completion
 source <(kind completion bash)
