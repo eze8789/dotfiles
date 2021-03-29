@@ -6,11 +6,12 @@ if [ -f /etc/bashrc ]; then
 fi
 
 GO_BIN=$HOME/go/bin
+RUST_BIN=$HOME/.cargo/bin
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:/var/lib/snapd/snap/bin:$GO_BIN:$HOME/.local/protobuf/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:/var/lib/snapd/snap/bin:$GO_BIN:$RUST_BIN:$HOME/.local/protobuf/bin:$PATH"
 fi
 export PATH
 
