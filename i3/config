@@ -193,18 +193,24 @@ bar {
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # spotify
-for_window [class="Spotify"] move to workspace $ws10
-exec --no-startup-id i3-msg 'workspace $ws10; exec spotify'
-bindsym $mod+shift+s exec spotify
+#for_window [class="Spotify"] move to workspace $ws10
+#exec --no-startup-id i3-msg 'workspace $ws10; exec spotify'
+#bindsym $mod+shift+s exec spotify
 
 default_border pixel
 
 # Open file explorer (ranger)
-bindsym $mod+Shift+f exec "terminator -e ranger;i3-msg floating enable;i3-msg resize set 800px 600px;i3-msg move position 1200px 430px"
+bindsym $mod+Shift+f exec "alacritty -e ranger;i3-msg floating enable;i3-msg resize set 800px 600px;i3-msg move position 1200px 430px"
 
 bindsym Print exec flameshot gui
 
 # move focused window between monitors
 bindsym $mod+Shift+greater move workspace to output right
 bindsym $mod+Shift+less move workspace to output left
+
+# Enable gaps
+
+gaps inner 8
+# gaps outer 50
+
 
