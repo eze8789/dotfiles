@@ -54,8 +54,9 @@ bindsym $mod+Shift+q kill
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # start rofi (a program launcher, better than dmenu)
-bindsym $mod+d exec rofi -show run
+bindsym $mod+Shift+d exec rofi -show run -icon-theme "Papirus" -show-icons
 
+bindsym $mod+d exec rofi -show drun -icon-theme "Papirus" -show-icons
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -181,7 +182,7 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+x exec sleep 1 && i3lock -e -i ~/wallpapers/go.png
 
 # Setup wallpaper with feh
-exec_always feh --bg-scale ~/wallpapers/alena-aenami-million-little-pieces-1k.jpg
+exec_always feh --bg-scale ~/wallpapers/astronaut.jpg
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
