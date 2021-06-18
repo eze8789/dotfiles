@@ -1,5 +1,8 @@
 syntax on
 
+set bg=dark
+colorscheme gruvbox
+
 set number relativenumber
 set ignorecase
 

@@ -41,6 +41,12 @@ complete -C /usr/local/bin/terraform terraform
 # kubectl autocompletion
 source <(kubectl completion bash)
 
+# yq completion
+source <(yq shell-completion bash)
+
+# gh cli completion
+eval "$(gh completion -s bash)"
+
 # minikube autocompletion
 if command -v minikube &>/dev/null
 then
