@@ -105,7 +105,8 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
-
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
 
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
@@ -117,6 +118,7 @@ set ignorecase
 
 set encoding=utf-8
 set fileencoding=utf-8
+set updatetime=100
 
 set bg=dark
 colorscheme gruvbox
