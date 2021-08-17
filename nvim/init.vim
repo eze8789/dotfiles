@@ -2,14 +2,19 @@ call plug#begin('~/.vim/plugged')
 
 
 Plug 'morhetz/gruvbox'
+Plug 'arzg/vim-colors-xcode'
+
+
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 Plug 'hashivim/vim-terraform'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+Plug 'preservim/nerdcommenter'
 
 Plug 'mbbill/undotree'
 Plug 'flazz/vim-colorschemes'
@@ -22,6 +27,16 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+
+"Telescope Requirements
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+"Telescope
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'fannheyward/telescope-coc.nvim'
 
 call plug#end()
 
@@ -115,6 +130,8 @@ syntax on
 
 set number relativenumber
 set ignorecase
+set autoread
+set cursorline
 
 set encoding=utf-8
 set fileencoding=utf-8
@@ -122,6 +139,7 @@ set updatetime=100
 
 set bg=dark
 colorscheme gruvbox
+"colorscheme xcodedarkhc
 
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
@@ -130,9 +148,18 @@ autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 " FILE SEARCH:
 " ------------
 "allows FZF to open by pressing CTRL-F
-map <C-p> :FZF<CR>
+"map <C-p> :FZF<CR>
 "allow FZF to search hidden 'dot' files
-let $FZF_DEFAULT_COMMAND = "find -L"
+"let $FZF_DEFAULT_COMMAND = "find -L"
+
+" Find files using Telescope command-line sugar.
+nnoremap <silent>ff <cmd>Telescope find_files<cr>
+nnoremap <silent>fg <cmd>Telescope live_grep<cr>
+nnoremap <silent>fb <cmd>Telescope buffers<cr>
+nnoremap <silent>fh <cmd>Telescope help_tags<cr>
+
+" Markdown Preview
+map <C-p> :MarkdownPreview<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>

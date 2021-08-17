@@ -474,6 +474,9 @@ live_config_reload: true
     #   launcher:
     # program: xdg-open
     #  args: []
+    # launcher:
+    # program: xdg-open
+    # args: []
 
     # URL modifiers
     #
