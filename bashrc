@@ -86,3 +86,4 @@ export PS1="\[\e\033[01;32m\]\u@\h \[\e\033[01;34m\]\w\[\e[91m\]\$(parse_git_bra
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"
