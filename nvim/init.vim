@@ -1,149 +1,29 @@
-call plug#begin('~/.vim/plugged')
-
-
-Plug 'morhetz/gruvbox'
-Plug 'arzg/vim-colors-xcode'
-
-
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-
-Plug 'fatih/vim-go'
-Plug 'rust-lang/rust.vim'
-Plug 'hashivim/vim-terraform'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-Plug 'preservim/nerdcommenter'
-
-Plug 'mbbill/undotree'
-Plug 'flazz/vim-colorschemes'
-Plug 'tpope/vim-commentary' 
-
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-
-"Telescope Requirements
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
-"Telescope
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'fannheyward/telescope-coc.nvim'
-
-call plug#end()
-
-" -------------------------------------------------------------------------------------------------
-" coc.nvim default settings
-" -------------------------------------------------------------------------------------------------
-
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Better display for messages
-set cmdheight=2
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use U to show documentation in preview window
-nnoremap <silent> U :call <SID>show_documentation()<CR>
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
-" Go syntax highlighting
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
+" General config
 
 syntax on
+let mapleader = ";"
 
 set number relativenumber
 set ignorecase
 set autoread
-set cursorline
+"set cursorline
+
+"use y and p with the system clipboard
+set clipboard=unnamedplus
 
 set encoding=utf-8
 set fileencoding=utf-8
 set updatetime=100
 
 set bg=dark
-colorscheme gruvbox
-"colorscheme xcodedarkhc
 
-autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+" Remapping
 
+"Navigate buffers
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>bf :bfirst<CR>
+nnoremap <leader>bl :blast<CR>
 
 " FILE SEARCH:
 " ------------
@@ -153,13 +33,61 @@ autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 "let $FZF_DEFAULT_COMMAND = "find -L"
 
 " Find files using Telescope command-line sugar.
+nnoremap <leader>fb :Telescope file_browser<CR>
 nnoremap <silent>ff <cmd>Telescope find_files<cr>
 nnoremap <silent>fg <cmd>Telescope live_grep<cr>
 nnoremap <silent>fb <cmd>Telescope buffers<cr>
 nnoremap <silent>fh <cmd>Telescope help_tags<cr>
 
+"****************************************************
+"Markdown Preview Recommended Settings
+"****************************************************
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1 
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 1 
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+let g:mkdp_browserfunc = ''
 " Markdown Preview
 map <C-p> :MarkdownPreview<CR>
+
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
@@ -188,7 +116,70 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let g:airline_powerline_fonts = 1
 
 " GIT (FUGITIVE):
-map fgb :Gblame<CR>
-map fgs :Gstatus<CR>
-map fgl :Glog<CR>
+map fgb :Git blame<CR>
+map fgs :Git<CR>
+map fgl :Gclog<CR>
 map fgd :Gdiff<CR>
+
+"==================================================================================
+"plugins
+"==================================================================================
+
+call plug#begin('~/.config/nvim/autoload/')
+
+Plug 'morhetz/gruvbox'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'EdenEast/nightfox.nvim'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+Plug 'preservim/nerdcommenter'
+Plug 'folke/todo-comments.nvim'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+
+"Language packs
+Plug 'sheerun/vim-polyglot'
+"Grammar checking
+Plug 'rhysd/vim-grammarous'
+
+"Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"LSP autocomplete
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+
+"File browsing
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+
+"Native LSP
+Plug 'neovim/nvim-lspconfig'
+
+"Buffer navigation
+Plug 'vim-airline/vim-airline'
+Plug 'nvim-lualine/lualine.nvim'
+
+
+"Telescope Requirements
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+"Telescope
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+call plug#end()
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+lua require("linuxin8789_cfg")
+
+"colorscheme gruvbox
