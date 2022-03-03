@@ -179,6 +179,7 @@ call plug#end()
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable
 
 lua require("linuxin8789_cfg")
 
