@@ -1,5 +1,4 @@
 " General config
-
 syntax on
 let mapleader = ";"
 
@@ -14,8 +13,6 @@ set clipboard=unnamedplus
 set encoding=utf-8
 set fileencoding=utf-8
 set updatetime=100
-
-set bg=dark
 
 " Remapping
 
@@ -93,27 +90,27 @@ map <C-p> :MarkdownPreview<CR>
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " NERDTree plugin specific commands
-map nt :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup=2
+"map nt :NERDTreeTabsToggle<CR>
+"let g:nerdtree_tabs_open_on_console_startup=2
 " Add a close button in the upper right for tabs
-let g:tablineclosebutton=1
+"let g:tablineclosebutton=1
 " Automatically find and select currently opened file in NERDTree
-let g:nerdtree_tabs_autofind=1
+"let g:nerdtree_tabs_autofind=1
 " Add folder icon to directories
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
+"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"let g:DevIconsEnableFoldersOpenClose = 1
 " Add a close button in the upper right for tabs
-let g:tablineclosebutton=1
+"let g:tablineclosebutton=1
 " Automatically find and select currently opened file in NERDTree
-let g:nerdtree_tabs_autofind=1
+"let g:nerdtree_tabs_autofind=1
 " Add folder icon to directories
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
+"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"let g:DevIconsEnableFoldersOpenClose = 1
 
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+"let g:NERDTreeDirArrowExpandable = '▸'
+"let g:NERDTreeDirArrowCollapsible = '▾'
 " air-line plugin specific commands
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 
 " GIT (FUGITIVE):
 map fgb :Git blame<CR>
@@ -137,8 +134,8 @@ Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'scrooloose/nerdtree'
+"Plug 'jistr/vim-nerdtree-tabs'
 
 "Language packs
 Plug 'sheerun/vim-polyglot'
@@ -175,6 +172,9 @@ Plug 'nvim-telescope/telescope.nvim'
 "Telescope
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
+" Neo-tree
+Plug 'nvim-neo-tree/neo-tree.nvim'
+
 call plug#end()
 
 set foldmethod=expr
@@ -183,4 +183,3 @@ set nofoldenable
 
 lua require("linuxin8789_cfg")
 
-"colorscheme gruvbox

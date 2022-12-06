@@ -1,22 +1,18 @@
-require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
+require'nvim-treesitter.configs'.setup { ensure_installed = {"go", "rust", "python", "lua"}, highlight = { enable = true } }
 
-local nightfox = require('nightfox')
-nightfox.setup({
-  fox = "nightfox",
-  alt_nc = true,
-  visual = true,
-  search = true,
-  styles = {
-    comments = "italic",
-    keywords = "bold",
-    functions = "italic,bold"
+require('nightfox').setup({
+  options = {
+    styles = {
+      comments = "italic",
+      keywords = "bold",
+      types = "italic,bold",
+    }
   }
 })
-nightfox.load()
 
 
 -- Native LSP Setup
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require'lspconfig'.gopls.setup{
   capabilities = capabilities,
   on_attach = function() 

@@ -191,25 +191,8 @@ exec_always feh --bg-scale ~/wallpapers/709186.png
 #        position top
 #	font pango:Droid Sans Mono Bold 9
 #}
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-# i3status-rust
-bar {
-    font pango:Droid Sans Mono Bold, FontAwesome5Free, FontAwesome5Brands 12
-    position top
-    status_command /usr/bin/i3status-rs $HOME/.config/i3status-rust/config.toml
-    colors {
-        separator "#1d2021"
-        background "#282828"
-	statusline "#282828"
-        focused_workspace    "#d79921" "#1d2021" "#d79921"
-        inactive_workspace   "#282828" "#282828" "#d79921"
-        active_workspace     "#282828" "#282828" "#d79921"
-        urgent_workspace     "#cc241d" "#cc241d" "#282828"
-    }
-   # output primary
-    tray_output none
-}
 
 # spotify
 #for_window [class="Spotify"] move to workspace $ws10
@@ -219,7 +202,7 @@ bar {
 default_border pixel
 
 # Open file explorer (ranger)
-bindsym $mod+Shift+f exec "alacritty -e ranger"
+bindsym $mod+Shift+f exec "alacritty -e TERM=xterm-256color ranger"
 
 bindsym Print exec flameshot gui
 
@@ -232,4 +215,6 @@ bindsym $mod+Shift+less move workspace to output left
 gaps inner 8
 # gaps outer 50
 
+# hide title bars
+for_window [class="^.*"] border pixel 1
 
