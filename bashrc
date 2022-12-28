@@ -37,7 +37,7 @@ alias vim='nvim'
 complete -C '/usr/local/bin/aws_completer' aws
 
 # Terraform autocompletion
-complete -C /usr/local/bin/terraform terraform
+complete -C /home/linuxin/.asdf/shims/terraform terraform
 
 # kubectl autocompletion
 source <(kubectl completion bash)
@@ -84,6 +84,8 @@ parse_git_branch() {
 
 export PS1="\[\e\033[01;32m\]\u@\h \[\e\033[01;34m\]\w\[\e[91m\]\$(parse_git_branch) \[\e\033[01;34m\]\$\[\e[00m\] "
 
-
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
