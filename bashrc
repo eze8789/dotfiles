@@ -54,6 +54,8 @@ then
 	  eval "$(minikube completion bash)"
 fi
 
+export TF_CLI_CONFIG_FILE=".terraformrc" 
+
 # Histcontrol
 export HISTFILESIZE=1000000
 export HISTSIZE=1000000
