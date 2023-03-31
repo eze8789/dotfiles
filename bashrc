@@ -7,11 +7,12 @@ fi
 
 GO_BIN=$HOME/go/bin
 RUST_BIN=$HOME/.cargo/bin
+EMACS_BIN=$HOME/.emacs.d/bin
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:/var/lib/snapd/snap/bin:$GO_BIN:$RUST_BIN:$HOME/.local/protobuf/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:/var/lib/snapd/snap/bin:$GO_BIN:$RUST_BIN:$EMACS_BIN:$HOME/.local/protobuf/bin:$PATH"
 fi
 export PATH
 
@@ -32,6 +33,7 @@ alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 alias ls='ls --color=auto' 
 alias vim='nvim'
+alias ranger="TERM=xterm-256color ranger"
 
 #AWS autocompletion
 complete -C '/usr/local/bin/aws_completer' aws
