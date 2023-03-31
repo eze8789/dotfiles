@@ -82,6 +82,8 @@ require('packer').startup(function(use)
 }
   use 'mbbill/undotree' --
 
+  use 'RRethy/vim-illuminate'
+
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
@@ -213,6 +215,8 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
+vim.cmd [[autocmd BufRead,BufNewFile *.libsonnet set filetype=jsonnet]]
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -285,6 +289,7 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>gg', require('telescope.builtin').git_files, { desc = '[G]et [G]it files' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -294,7 +299,7 @@ vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'bash', 'dockerfile', 'c', 'cpp', 'go', 'gomod', 'json', 'lua', 'make', 'markdown', 'python', 'regex', 'rust', 'toml', 'typescript', 'vim', 'yaml', 'zig', 'help', 'hcl' },
+  ensure_installed = { 'bash', 'dockerfile', 'c', 'cpp', 'go', 'gomod', 'json', 'jsonnet', 'lua', 'make', 'markdown', 'python', 'regex', 'rust', 'toml', 'typescript', 'vim', 'yaml', 'zig', 'help', 'hcl' },
 
   highlight = { enable = true },
   rainbow = {
@@ -421,8 +426,9 @@ local servers = {
   rust_analyzer = {},
   tsserver = {},
   terraformls = {},
+  jsonnet_ls = {},
 
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -525,6 +531,16 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 require('go').setup()
 
+require('illuminate').configure({
+    -- providers: provider used to get references in the buffer, ordered by priority
+    providers = {
+        'lsp',
+        'treesitter',
+        'regex',
+    },
+    -- delay: delay in milliseconds
+    delay = 100,
+})
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
