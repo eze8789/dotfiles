@@ -46,6 +46,7 @@ return {
       "html",
       "javascript",
       "json",
+      "jsonnet",
       "lua",
       "luap",
       "make",
