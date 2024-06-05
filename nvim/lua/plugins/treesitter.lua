@@ -42,7 +42,7 @@ return {
       "go",
       "gomod",
       "hcl",
-      "help",
+      "vimdoc",
       "html",
       "javascript",
       "json",
@@ -63,6 +63,8 @@ return {
       "yaml",
       "zig",
     },
+    sync_install = true,
+    auto_install = true,
     incremental_selection = {
       enable = true,
       keymaps = {
