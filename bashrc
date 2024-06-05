@@ -7,13 +7,22 @@ fi
 
 export GOBIN=$HOME/go/bin
 RUST_BIN=$HOME/.cargo/bin
-EMACS_BIN=$HOME/.emacs.d/bin
+EMACS_BIN=$HOME/.config/emacs/bin
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 	PATH="$HOME/.local/bin:$HOME/bin:/var/lib/snapd/snap/bin:$GOBIN:$RUST_BIN:$EMACS_BIN:$HOME/.local/protobuf/bin:$PATH"
 fi
 export PATH
+
+# Bash colors
+NORMAL=$(echo -e "\001\033[00m\002")
+GREEN=$(echo -e "\001\033[01;32m\002")
+RED=$(echo -e "\001\033[01;31m\002")
+BLUE=$(echo -e "\001\033[01;94m\002")
+YELLOW=$(echo -e "\001\033[01;33m\002")
+PURPLE=$(echo -e "\001\033[01;35m\002")
+CYAN=$(echo -e "\001\033[01;36m\002")
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -86,9 +95,15 @@ parse_git_branch() {
 	git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-export PS1="\[\e\033[01;32m\]\u@\h \[\e\033[01;34m\]\w\[\e[91m\]\$(parse_git_branch) \[\e\033[01;34m\]\$\[\e[00m\] "
+#export PS1="\[\e\033[01;32m\]\u@\h \[\e\033[01;34m\]\w\[\e[91m\]\$(parse_git_branch) \[\e\033[01;34m\]\$\[\e[00m\] "
+export PS1="\[${GREEN}\u@\h \[${YELLOW}\w\[\e[91m\]\$(parse_git_branch) \[${YELLOW}\$\[\e[00m\] "
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+. "$HOME/.cargo/env"
