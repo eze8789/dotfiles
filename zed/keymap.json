@@ -1,0 +1,22 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // replace file_finder::Toggle
+      "ctrl-p": ["task::Spawn", { "task_name": "file_finder" }]
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-f": ["task::Spawn", { "task_name": "find_in_files" }]
+    }
+  }
+]
