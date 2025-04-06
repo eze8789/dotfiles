@@ -9,7 +9,7 @@ export GOBIN=$HOME/go/bin
 RUST_BIN=$HOME/.cargo/bin
 EMACS_BIN=$HOME/.config/emacs/bin
 
-# Homebrew setup - add to the beginning of PATH for precedence
+# Homebrew setup 
 if [ -d "/opt/homebrew/bin" ]; then
     # Only add if not already in PATH
     if ! [[ ":$PATH:" == *":/opt/homebrew/bin:"* ]]; then
@@ -24,13 +24,20 @@ fi
 export PATH
 
 # Bash colors
-NORMAL=$(echo -e "\001\033[00m\002")
-GREEN=$(echo -e "\001\033[01;32m\002")
-RED=$(echo -e "\001\033[01;31m\002")
-BLUE=$(echo -e "\001\033[01;94m\002")
-YELLOW=$(echo -e "\001\033[01;33m\002")
-PURPLE=$(echo -e "\001\033[01;35m\002")
-CYAN=$(echo -e "\001\033[01;36m\002")
+#NORMAL=$(echo -e "\001\033[00m\002")
+#GREEN=$(echo -e "\001\033[01;32m\002")
+#RED=$(echo -e "\001\033[01;31m\002")
+#BLUE=$(echo -e "\001\033[01;94m\002")
+#YELLOW=$(echo -e "\001\033[01;33m\002")
+#PURPLE=$(echo -e "\001\033[01;35m\002")
+#CYAN=$(echo -e "\001\033[01;36m\002")
+RESET="\[\033[0m\]"
+GREEN="\[\033[01;32m\]"
+RED="\[\033[01;31m\]"
+BLUE="\[\033[01;94m\]"
+YELLOW="\[\033[01;33m\]"
+PURPLE="\[\033[01;35m\]"
+CYAN="\[\033[01;36m\]"
 
 # Set default editor
 export EDITOR=vim
@@ -39,7 +46,6 @@ export EDITOR=vim
 if [[ "$(uname)" == "Darwin" ]]; then  # macOS
     # Use BSD ls flags on macOS
     alias ls='ls -G'
-    # macOS already has pbcopy/pbpaste built in - no need for aliases
 else  # Linux
     # Use GNU ls flags on Linux
     alias ls='ls --color=auto'
@@ -120,13 +126,14 @@ parse_git_branch() {
 }
 
 # Set Prompt - keeping your original
-export PS1="\[${GREEN}\]\u@\h \[${YELLOW}\]\w\[\e[91m\]\$(parse_git_branch) \[${YELLOW}\]\$\[\e[00m\] "
+#export PS1="\[${GREEN}\]\u@\h \[${YELLOW}\]\w\[\033[91m\]\$(parse_git_branch) \[${YELLOW}\]\$\[\033[00m\] "
+export PS1="${GREEN}\u@\h ${YELLOW}\w${RED}\$(parse_git_branch) ${YELLOW}\$${RESET} "
 
 # fzf configuration
-# First check for user-installed fzf completion/key-binding scripts
+# Check user-installed fzf completion/key-binding scripts
 if [ -f ~/.fzf.bash ]; then
     source ~/.fzf.bash
-# Next try the Homebrew installation locations
+# Try Homebrew installation locations
 elif [ -d "/opt/homebrew/opt/fzf" ]; then
     # Homebrew fzf installation on macOS (Apple Silicon)
     [ -f /opt/homebrew/opt/fzf/shell/completion.bash ] && source /opt/homebrew/opt/fzf/shell/completion.bash
@@ -141,13 +148,16 @@ elif [ -d "/home/linuxbrew/.linuxbrew/opt/fzf" ]; then
     [ -f /home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.bash ] && source /home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.bash
 fi
 
-# pyenv setup (asdf removed as requested)
-export PYENV_ROOT="$HOME/.pyenv"
-if command -v pyenv >/dev/null || [ -d "$PYENV_ROOT/bin" ]; then
-    [ -d "$PYENV_ROOT/bin" ] && export PATH="$PYENV_ROOT/bin:$PATH"
+# pyenv setup
+if [ -d "$HOME/.pyenv" ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
     if command -v pyenv >/dev/null; then
+        eval "$(pyenv init --path)"
         eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
+        if command -v pyenv-virtualenv-init >/dev/null; then
+            eval "$(pyenv virtualenv-init -)"
+        fi
     fi
 fi
 
