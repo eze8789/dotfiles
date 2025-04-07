@@ -13,7 +13,7 @@ cursor-style = block
 cursor-style-blink = false
 adjust-cell-height = 5%
 
-gtk-titlebar = false
+# gtk-titlebar = false
 shell-integration-features = no-cursor
 
 quit-after-last-window-closed = true

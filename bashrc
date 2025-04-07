@@ -63,6 +63,119 @@ alias less='less -R'
 alias k='kubectl'
 alias ranger="TERM=xterm-256color ranger"
 
+# Load bash completion system
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    elif [ -f /usr/local/etc/bash_completion ]; then
+        . /usr/local/etc/bash_completion
+    fi
+fi
+
+# Load any additional completions from user directory if it exists
+if [ -d ~/.bash_completion.d ]; then
+    for file in ~/.bash_completion.d/*; do
+        if [ -f "$file" ]; then
+            . "$file"
+        fi
+    done
+fi
+
+if ! type _init_completion >/dev/null 2>&1; then
+    _init_completion() {
+        local exclude= flag outx=
+        # shellcheck disable=SC2034
+        COMPREPLY=()
+        # shellcheck disable=SC2034
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        # shellcheck disable=SC2034
+        prev="${COMP_WORDS[COMP_CWORD-1]}"
+        # shellcheck disable=SC2034
+        words=("${COMP_WORDS[@]}")
+        # shellcheck disable=SC2034
+        cword=$COMP_CWORD
+
+        if [[ $1 == -n ]]; then
+            exclude=$2
+            shift 2
+        fi
+
+        if [[ $1 == -F ]]; then
+            flag=$2
+            shift 2
+        fi
+
+        if [[ $1 == -o ]]; then
+            outx=$2
+            shift 2
+        fi
+    }
+fi
+
+if ! type _get_comp_words_by_ref >/dev/null 2>&1; then
+    _get_comp_words_by_ref() {
+        local exclude flag n
+        while [[ $# -gt 0 ]]; do
+            case $1 in
+                -n) exclude=$2; shift 2 ;;
+                -c) flag=1; shift ;;
+                -w) flag=2; shift ;;
+                -p) flag=3; shift ;;
+                -l) flag=4; shift ;;
+                *) n=$1; shift ;;
+            esac
+        done
+
+        case $flag in
+            1) printf -v "$n" %s "$COMP_CWORD" ;;
+            2) printf -v "$n" %s "${COMP_WORDS[*]}" ;;
+            3) printf -v "$n" %s "$prev" ;;
+            4) printf -v "$n" %s "$cur" ;;
+        esac
+    }
+fi
+
+# Define basic completion helper functions
+if ! type _known_hosts_real >/dev/null 2>&1; then
+    _known_hosts_real() {
+        local hosts=()
+        if [[ -f ~/.ssh/known_hosts ]]; then
+            hosts+=($(awk '{print $1}' ~/.ssh/known_hosts | grep -v '^|' | cut -d ',' -f 1 | sed -e 's/\[//g' -e 's/\]//g' | cut -d ':' -f 1))
+        fi
+        if [[ -f ~/.ssh/config ]]; then
+            hosts+=($(grep -i ^host ~/.ssh/config | awk '{print $2}'))
+        fi
+        COMPREPLY=($(compgen -W "${hosts[*]}" -- "$cur"))
+    }
+fi
+
+# Define generic utility functions for completion
+if ! type _filedir >/dev/null 2>&1; then
+    _filedir() {
+        local IFS=$'\n'
+        local -a toks
+        local reset x tmp
+
+        reset=$(tput sgr0)
+        
+        # Get current directory content
+        if [[ $1 == @(d|D) ]]; then
+            # Only directories
+            toks=($(compgen -d -- "$cur" 2>/dev/null))
+        elif [[ $1 == @(f|F) ]]; then
+            # Only files
+            toks=($(compgen -f -- "$cur" 2>/dev/null | grep -v /$ 2>/dev/null))
+        else
+            # Both files and directories
+            toks=($(compgen -f -- "$cur" 2>/dev/null))
+        fi
+        
+        COMPREPLY+=("${toks[@]}")
+    }
+fi
+
 # Completions - check command availability for compatibility
 # AWS autocompletion
 if command -v aws_completer &>/dev/null; then
