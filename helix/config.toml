@@ -10,6 +10,9 @@ theme = "gruvbox"
 "S-k" = "jump_view_up"
 "S-h" = "jump_view_left"
 
+"C-S-l" = ":buffer-next"
+"C-S-h" = ":buffer-previous"
+
 [editor]
 bufferline = "multiple"
 line-number = "relative"
