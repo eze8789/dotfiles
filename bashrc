@@ -40,7 +40,7 @@ PURPLE="\[\033[01;35m\]"
 CYAN="\[\033[01;36m\]"
 
 # Set default editor
-export EDITOR=vim
+export EDITOR=hx
 
 # Platform-specific commands and aliases
 if [[ "$(uname)" == "Darwin" ]]; then  # macOS
@@ -216,6 +216,10 @@ fi
 # kind completion
 if command -v kind &>/dev/null; then
     source <(kind completion bash)
+fi
+
+if command -v ngrok &>/dev/null; then
+   eval "$(ngrok completion)"
 fi
 
 export TF_CLI_CONFIG_FILE=".terraformrc"
