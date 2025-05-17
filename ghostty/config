@@ -5,7 +5,7 @@ theme = GruvboxDark
 font-size = 12
 font-family = Roboto Mono
 font-family-bold = Roboto Mono Bold
-font-family-italic = Robot Mono Italic
+font-family-italic = Roboto Mono Italic
 font-family-bold-italic = Roboto Mono Bold Italic
 
 # Cursor configuration
